@@ -37,6 +37,12 @@
 
 		<h2>Changelog</h2>
 		<ul class="no-dots" style="font-size: 15px;">
+			<h3>06/08/2024</h3>
+			- Restored "Spotify Username" field in Settings, Other, Spotify features.<br>
+			- New feature! Added the possibility to insert a list of spotify users instead, separated by commas or spaces.<br>
+			How it works:<br>
+			All the public playlists by the listed users will be displayed in the Favorites section. A user ID is the part that comes after 'https://open.spotify.com/user/' and can be a set of alphanumeric characters or a profile name. You can also insert your own Spotify username as before.<br>
+			<br>
 			<h3>02/08/2024</h3>
 			- Removed outdated linters and formatters<br>
 			- Few fixes in API ts types<br>
