@@ -717,7 +717,7 @@
 					<p style="font-size: 13px; font-style: italic;">Tip: you can insert here a list of Spotify Users IDs,
 						separated by comma or space. All the public
 						playlists by these users will be displayed in the Favorites section. A user ID is the part that comes after
-						'https://open.spotify.com/user/' and can be a set of alphanumeric characters or a profile name.<br>You can also insert your own Spotify username as before.</p>
+						'https://open.spotify.com/user/' and can be a set of alphanumeric characters or a profile name.<br>You can also insert your own Spotify user ID as before.</p>
 					<input v-model="spotifyUser" type="text" />
 				</div>
 				<br>
