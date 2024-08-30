@@ -1,7 +1,5 @@
 import Vue from 'vue'
 
-import '@/plugins/composition-api'
-
 import '@/styles/vendor/material-icons.css'
 import '@/styles/vendor/OpenSans.css'
 
@@ -39,12 +37,13 @@ if (location.base == '<%= locationBase %>') location.base = '/'
 /* ===== App initialization ===== */
 async function startApp () {
   document.getElementById('missingBundle').remove()
-  new Vue({
-    store,
-    router,
-    i18n,
-    render: h => h(App)
-  }).$mount('#app')
+	const app = new Vue({
+	  store,
+	  router,
+		i18n,
+	  render: h => h(App)
+	})
+	app.$mount('#app')
 
   const connectResponse = await fetchData('connect')
   const spotifyStatus = connectResponse.spotifyEnabled ? SPOTIFY_STATUS.ENABLED : SPOTIFY_STATUS.DISABLED

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { computed, onMounted, reactive, ref, toRefs, watch, defineComponent } from '@vue/composition-api'
+import { computed, onMounted, reactive, ref, toRefs, watch, defineComponent } from 'vue'
 import { uniqWith } from 'lodash-es'
 
 import BaseLoadingPlaceholder from '@/components/globals/BaseLoadingPlaceholder.vue'
@@ -51,6 +51,8 @@ import { formatSingleTrack, formatAlbums, formatArtist, formatPlaylist } from '@
 import { standardizeData } from '@/data/standardize'
 import { useMainSearch } from '@/use/main-search'
 import { useSearch } from '@/use/search'
+import { useI18n } from 'vue-i18n-bridge'
+import { useRoute } from '@/router'
 
 const resetObj = { data: [], next: 0, total: 0, hasLoaded: false }
 
@@ -69,6 +71,7 @@ export default defineComponent({
 		}
 	},
 	setup(_, ctx) {
+		const i18n = useI18n()
 		const state = reactive({
 			currentTab: {
 				name: '',
@@ -102,34 +105,34 @@ export default defineComponent({
 			},
 			tabs: [
 				{
-					name: ctx.root.$i18n.t('globals.listTabs.all'),
+					name: i18n.t('globals.listTabs.all'),
 					searchType: 'all',
 					component: ResultsAll,
 					viewInfo: 'allTab'
 				},
 				{
-					name: ctx.root.$i18n.tc('globals.listTabs.track', 2),
+					name: i18n.t('globals.listTabs.track', 2),
 					searchType: 'track',
 					component: ResultsTracks,
 					viewInfo: 'trackTab',
 					formatFunc: formatSingleTrack
 				},
 				{
-					name: ctx.root.$i18n.tc('globals.listTabs.album', 2),
+					name: i18n.t('globals.listTabs.album', 2),
 					searchType: 'album',
 					component: ResultsAlbums,
 					viewInfo: 'albumTab',
 					formatFunc: formatAlbums
 				},
 				{
-					name: ctx.root.$i18n.tc('globals.listTabs.artist', 2),
+					name: i18n.t('globals.listTabs.artist', 2),
 					searchType: 'artist',
 					component: ResultsArtists,
 					viewInfo: 'artistTab',
 					formatFunc: formatArtist
 				},
 				{
-					name: ctx.root.$i18n.tc('globals.listTabs.playlist', 2),
+					name: i18n.t('globals.listTabs.playlist', 2),
 					searchType: 'playlist',
 					component: ResultsPlaylists,
 					viewInfo: 'playlistTab',
@@ -137,10 +140,11 @@ export default defineComponent({
 				}
 			]
 		})
+		const route = useRoute()
 		const { searchResult, performMainSearch } = useMainSearch()
 		const { result, performSearch } = useSearch()
 		const cachedSearchedTerm = computed(() => searchResult.value.QUERY)
-		const searchedTerm = computed(() => ctx.root.$route.query.term || cachedSearchedTerm.value)
+		const searchedTerm = computed(() => route.query.term || cachedSearchedTerm.value)
 		const isQueryEmpty = computed(() => state.results.query === '')
 		const isSearching = ref(false)
 		const isMainSearchCached = computed(() => Object.keys(searchResult.value).length !== 0)

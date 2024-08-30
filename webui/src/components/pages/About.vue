@@ -207,16 +207,18 @@
 </template>
 
 <script>
-import { computed, defineComponent, onMounted, reactive, toRefs } from '@vue/composition-api'
+import { computed, defineComponent, onMounted, reactive, toRefs } from 'vue'
 import BaseAccordion from '@/components/globals/BaseAccordion.vue';
 
 import { useOnline } from '@/use/online'
+import { useStore } from '@/store';
 
 export default defineComponent({
 	components: {
 		BaseAccordion
 	},
 	setup(_, ctx) {
+		const store = useStore();
 		const state = reactive({
 			current: null,
 			latest: null,
@@ -234,7 +236,7 @@ export default defineComponent({
 			state.deemixVersion = deemixVersion
 		}
 
-		const getAppInfo = computed(() => ctx.root.$store.getters.getAppInfo)
+		const getAppInfo = computed(() => store.getters.getAppInfo)
 
 		onMounted(() => {
 			initUpdate(getAppInfo.value)

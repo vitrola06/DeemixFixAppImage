@@ -134,13 +134,14 @@
 import { aggregateDownloadLinks, sendAddToQueue } from '@/utils/downloads'
 import { BaseTab, BaseTabs } from '@/components/globals/BaseTabs'
 import { convertDuration } from '@/utils/utils'
-import { defineComponent, reactive, toRefs, watch } from '@vue/composition-api'
+import { defineComponent, reactive, toRefs, watch } from 'vue'
 import { playPausePreview } from '@/components/globals/TheTrackPreview.vue'
 import { toast } from '@/utils/toasts'
 import { useFavorites } from '@/use/favorites'
 import BaseLoadingPlaceholder from '@/components/globals/BaseLoadingPlaceholder.vue'
 import CoverContainer from '@/components/globals/CoverContainer.vue'
 import PreviewControls from '@/components/globals/PreviewControls.vue'
+import { useI18n } from 'vue-i18n-bridge';
 
 export default defineComponent({
 	components: {
@@ -155,6 +156,7 @@ export default defineComponent({
 			activeTab: 'playlist',
 			tabs: ['playlist', 'album', 'artist', 'track']
 		})
+		const i18n = useI18n()
 		const {
 			favoriteArtists,
 			favoriteAlbums,
@@ -174,7 +176,7 @@ export default defineComponent({
 
 			if (!isRefreshingTerminated) return
 
-			toast(ctx.root.$t('toasts.refreshFavs'), 'done', true)
+			toast(i18n.t('toasts.refreshFavs'), 'done', true)
 		})
 
 		return {

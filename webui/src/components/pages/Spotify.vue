@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="relative">
-			<BaseLoadingPlaceholder v-if="isRefreshingSpotifyPlaylists" :text="$t('globals.loading')" additional-classes="absolute top-0 left-0 w-full" />
+			<BaseLoadingPlaceholder v-if="isRefreshingSpotifyPlaylists" :text="$t('globals.loading')" additional-classes="absolute top-10 left-0 w-full" />
 			<div v-else>
 				<h2 class="mb-6 text-3xl">{{ $t('spotifyHome.subHeading') }}</h2>
 				<BaseAccordion class="warning">
@@ -60,10 +60,11 @@ import CoverContainer from '@/components/globals/CoverContainer.vue';
 import PreviewControls from '@/components/globals/PreviewControls.vue';
 
 import { useSpotifyPlaylists } from '@/use/spotifyplaylists';
-import { ref, watch } from '@vue/composition-api';
+import { ref, watch } from 'vue';
 import { toast } from '@/utils/toasts';
 import { socket } from '@/utils/socket';
 import store from '@/store';
+import { useI18n } from 'vue-i18n-bridge';
 
 export default {
 	components: {
@@ -74,10 +75,11 @@ export default {
 		CoverContainer,
 		PreviewControls,
 	},
-	setup(_, { root }) {
+	setup() {
 		const lastUser = ref('');
 		const spotifyUser = ref('');
 
+		const i18n = useI18n();
 		const {
 			favoriteSpotifyPlaylists,
 			isRefreshingSpotifyPlaylists,
@@ -96,7 +98,7 @@ export default {
 		watch(isRefreshingSpotifyPlaylists, (newVal, oldVal) => {
 			const isRefreshingTerminated = oldVal && !newVal;
 			if (!isRefreshingTerminated) return;
-			toast(root.$t('toasts.refreshFavs'), 'done', true);
+			toast(i18n.t('toasts.refreshFavs'), 'done', true);
 		});
 
 		refreshSpotifyPlaylists().catch(console.error);

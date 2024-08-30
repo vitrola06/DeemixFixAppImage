@@ -7,7 +7,7 @@ import errors from '@/store/modules/errors'
 
 Vue.use(Vuex)
 
-export default new Store({
+const storeInst = new Store({
   modules: {
     appInfo,
     login,
@@ -15,3 +15,9 @@ export default new Store({
   },
   strict: process.env.NODE_ENV !== 'production'
 })
+
+export function useStore() {
+  return storeInst
+}
+
+export default storeInst;

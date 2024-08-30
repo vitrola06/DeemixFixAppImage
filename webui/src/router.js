@@ -133,6 +133,8 @@ const router = new VueRouter({
   }
 })
 
+import { computed, reactive, getCurrentInstance } from 'vue'
+
 router.beforeEach((to, _, next) => {
   switch (to.name) {
     case 'Tracklist': {
@@ -180,5 +182,43 @@ router.beforeEach((to, _, next) => {
 
   next()
 })
+
+
+
+/**
+ * @typedef {Object} RouteObject
+ * @property {string} fullPath - The full resolved path, including query and hash.
+ * @property {string} hash - The URL hash, if any, starting with `#`.
+ * @property {Array<any>} matched - Array of route records that were matched.
+ * @property {Record<string, any>} meta - Custom route metadata.
+ * @property {string | null} name - The name of the route (if named), or `null`.
+ * @property {Record<string, any>} params - Key-value pairs of dynamic segments and their values.
+ * @property {string} path - The full URL path without query or hash.
+ * @property {Record<string, any>} query - Query parameters in the form of key-value pairs.
+ */
+
+/**
+ * Returns an object representing the current route information.
+ * 
+ * @returns {RouteObject} An object containing details about the current route.
+ */
+export function useRoute() {
+  const currentRoute = computed(() => getCurrentInstance().proxy.$route)
+
+  const protoRoute = Object.keys(currentRoute.value).reduce(
+    (acc, key) => {
+      acc[key] = computed(() => currentRoute.value[key])
+      return acc
+    },
+    {}
+  )
+
+	// @ts-ignore
+  return reactive(protoRoute)
+}
+
+export function useRouter() {
+  return getCurrentInstance().proxy.$router
+}
 
 export default router

@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, unref, reactive, computed, toRefs } from '@vue/composition-api'
+import { defineComponent, ref, unref, reactive, computed, toRefs } from 'vue'
 import { orderBy } from 'lodash-es'
 
 import { BaseTabs, BaseTab } from '@/components/globals/BaseTabs'
@@ -109,6 +109,7 @@ import { sendAddToQueue } from '@/utils/downloads'
 import { checkNewRelease } from '@/utils/dates'
 import { formatArtistData, getArtistData } from '@/data/artist'
 import { standardizeData } from '@/data/standardize'
+import { useRouter } from '@/router'
 
 export default defineComponent({
 	components: {
@@ -116,6 +117,7 @@ export default defineComponent({
 		BaseTab
 	},
 	setup(_, ctx) {
+		const router = useRouter()
 		const state = reactive({
 			currentTab: '',
 			sortKey: 'releaseDate',
@@ -126,7 +128,7 @@ export default defineComponent({
 			currentRelease: computed(() => state.artistReleases[state.currentTab])
 		})
 
-		const artistID = computed(() => ctx.root.$router.currentRoute.params.id)
+		const artistID = computed(() => router.currentRoute.params.id)
 		const hasDataLoaded = ref(false)
 
 		getArtistData(unref(artistID))

@@ -35,26 +35,33 @@
 </template>
 
 <script>
-import { computed, defineComponent, reactive, toRefs } from '@vue/composition-api'
+import { computed, defineComponent, reactive, toRefs } from 'vue'
 import { links } from '@/data/sidebar'
 import { mapGetters } from 'vuex'
 import { useTheme } from '@/use/theme'
 import deemixIcon from '@/assets/deemix-icon.svg'
+import { useRouter, useRoute } from '@/router'
+import { useStore } from '@/store'
 
 export default defineComponent({
 	setup(_, ctx) {
-		const activeTab = links.find(link => link.routerName === ctx.root.$route.name)
+		const route = useRoute()
+		const router = useRouter()
+		const store = useStore()
+		
+		const activeTab = links.find(link => link.routerName === route.name)
 
 		const state = reactive({
 			activeTablink: activeTab ? activeTab.name : 'home',
 			links
 		})
+
 		const { THEMES, currentTheme } = useTheme()
 
 		/* === Add update notification near info === */
-		const updateAvailable = computed(() => ctx.root.$store.state.appInfo.updateAvailable)
+		const updateAvailable = computed(() => store.state.appInfo.updateAvailable)
 
-		ctx.root.$router.afterEach(to => {
+		router.afterEach(to => {
 			const linkInSidebar = state.links.find(link => link.routerName === to.name)
 
 			if (!linkInSidebar) return
@@ -66,7 +73,7 @@ export default defineComponent({
 			...toRefs(state),
 			currentTheme,
 			deemixIcon,
-			isSlim: computed(() => ctx.root.$store.getters.getSlimSidebar),
+			isSlim: computed(() => store.getters.getSlimSidebar),
 			THEMES,
 			updateAvailable,
 		}
