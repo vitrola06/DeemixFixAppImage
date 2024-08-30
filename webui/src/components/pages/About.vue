@@ -35,85 +35,89 @@
 				</template>
 			</i18n> -->
 		</ul>
-
-		<h2>Changelog</h2>
-		<ul class="no-dots" style="font-size: 15px;">
-			<h3>08/08/2024</h3>
-			- Icon colors<br>
-			- Created <a target="_blank" href="https://t.me/DeemixFix"> Releases Channel </a>Subscribe for
-			updates, changelog and Builds.<br>
-			- Contributions to developer accepted (all debit and credit cards):<a target="_blank"
-				href="https://revolut.me/michelf9a"> Revolut Me </a><br>
-			<br>
-			<h3>07/08/2024</h3>
-			- Restored "Spotify Username" field in Settings, Other, Spotify features.<br>
-			- Fix for crash when fetching empty Spotify Playlists or without thumbnail image.<br>
-			- New feature! Added the possibility to insert a list of spotify users instead, separated by commas or
-			spaces.<br><br>
-			How it works:<br>
-			Add a list of comma or space separated Spotify user IDs to "follow".<br>
-			All the public playlists by the listed users will be displayed in the Favorites section. A user ID is the part
-			that comes after 'https://open.spotify.com/user/' and can be a set of alphanumeric characters or a profile name,
-			especially for record labels. You can also insert your own Spotify username ID as before.<br>
-			<br>
-			<h3>02/08/2024</h3>
-			- Removed outdated linters and formatters<br>
-			- Few fixes in API ts types<br>
-			- Removed Spotify UserName requirement and instructions from settings<br>
-			<br>
-			<h3>31/07/2024</h3>
-			- Reverted to spotify-web-api-node<br>
-			- Fixed (again) the Buffer method in spotify-web-api-node<br>
-			<br>
-			<h3>26/07/2024</h3>
-			- Moved all scripts to pnpm<br>
-			- Fixed a few dependencies<br>
-			- Incorporated spotify-web-api-node-plus as local dependency<br>
-			- Replaced dateformat with date-fns<br>
-			<br>
-			<h3>25/07/2024</h3>
-			- Moved to spotify-web-api-node-plus<br>
-			- Amended spotify-web-api-node-plus Buffer() outdated syntax<br>
-			- Incorporated deemix.js as submodule<br>
-			- Fixed wrong API error displayed when track unavailable on Deezer<br>
-			- Removed bug report section in About<br>
-			- Removed reference to subreddit in About, now pointing to Telegram<br>
-			<br>
-			<h3>23/07/2024</h3>
-			- Fixed wrong API check for Deezer APIs<br>
-			- Removed email/password login (for now) to avoid confusion<br>
-			- Fixed search field background in day mode<br>
-			<br>
-			<h3>22/07/2024 - part2</h3>
-			- Added Dev branch<br>
-			- Rebased on RemixDev original project to maintain all commit history<br>
-			<br>
-			<h3>22/07/2024 - part1</h3>
-			- Fixed warning "Failed to make bytecode node20-x64 for file dateformat.js" during build phase<br>
-			- Removed server/dist/app.js and webui/public/js/bundle.js from repo, should not be tracked<br>
-			- Changelog improvements<br>
-			<br>
-			<h3>22/07/2024</h3>
-			- Fixed update check, it now correctly notifies for new versions on GDrive<br>
-			<br>
-			<h3>21/07/2024</h3>
-			- converted a lot of JS files to ES6<br>
-			- removed tabs<br>
-			- Modified About section<br>
-			- Added working Paypal link for contributions<br>
-			- Published on Gitlab Repo<br>
-			<br>
-			<h3>18/07/2024</h3>
-			- Initial sync, JS formatting via Standard-JS for all project files<br>
-			- Fixed download playlist from Spotify<br>
-			- Created local dependency "deemix 3.6.15', no longer from NPM, added Uh Wot fix<br>
-			- Created local dependency "spotify-web-api-node 5.04", no longer from NPM, fixed formatting and moved to ES6<br>
-			- Fixed alloc buffer security issue in spotify-web-api-node, was outputting error in server versions<br>
-			- Fixed logger errors<br>
-			- Upgraded a few dependencies<br>
-			- Replaced pkg with yaopkg<br>
-			- updated build scripts, removed Production build for now, the DEV build works fine<br>
-		</ul>
+		<br/>
+		<BaseAccordion>
+			<template #title>
+				<h1>Changelog</h1><p>(click to expand)</p>
+			</template>
+			<ul class="no-dots" style="font-size: 15px;">
+				<h3>08/08/2024</h3>
+				- Icon colors<br>
+				- Created <a target="_blank" href="https://t.me/DeemixFix"> Releases Channel </a>Subscribe for
+				updates, changelog and Builds.<br>
+				- Contributions to developer accepted (all debit and credit cards):<a target="_blank"
+					href="https://revolut.me/michelf9a"> Revolut Me </a><br>
+				<br>
+				<h3>07/08/2024</h3>
+				- Restored "Spotify Username" field in Settings, Other, Spotify features.<br>
+				- Fix for crash when fetching empty Spotify Playlists or without thumbnail image.<br>
+				- New feature! Added the possibility to insert a list of spotify users instead, separated by commas or
+				spaces.<br><br>
+				How it works:<br>
+				Add a list of comma or space separated Spotify user IDs to "follow".<br>
+				All the public playlists by the listed users will be displayed in the Favorites section. A user ID is the part
+				that comes after 'https://open.spotify.com/user/' and can be a set of alphanumeric characters or a profile name,
+				especially for record labels. You can also insert your own Spotify username ID as before.<br>
+				<br>
+				<h3>02/08/2024</h3>
+				- Removed outdated linters and formatters<br>
+				- Few fixes in API ts types<br>
+				- Removed Spotify UserName requirement and instructions from settings<br>
+				<br>
+				<h3>31/07/2024</h3>
+				- Reverted to spotify-web-api-node<br>
+				- Fixed (again) the Buffer method in spotify-web-api-node<br>
+				<br>
+				<h3>26/07/2024</h3>
+				- Moved all scripts to pnpm<br>
+				- Fixed a few dependencies<br>
+				- Incorporated spotify-web-api-node-plus as local dependency<br>
+				- Replaced dateformat with date-fns<br>
+				<br>
+				<h3>25/07/2024</h3>
+				- Moved to spotify-web-api-node-plus<br>
+				- Amended spotify-web-api-node-plus Buffer() outdated syntax<br>
+				- Incorporated deemix.js as submodule<br>
+				- Fixed wrong API error displayed when track unavailable on Deezer<br>
+				- Removed bug report section in About<br>
+				- Removed reference to subreddit in About, now pointing to Telegram<br>
+				<br>
+				<h3>23/07/2024</h3>
+				- Fixed wrong API check for Deezer APIs<br>
+				- Removed email/password login (for now) to avoid confusion<br>
+				- Fixed search field background in day mode<br>
+				<br>
+				<h3>22/07/2024 - part2</h3>
+				- Added Dev branch<br>
+				- Rebased on RemixDev original project to maintain all commit history<br>
+				<br>
+				<h3>22/07/2024 - part1</h3>
+				- Fixed warning "Failed to make bytecode node20-x64 for file dateformat.js" during build phase<br>
+				- Removed server/dist/app.js and webui/public/js/bundle.js from repo, should not be tracked<br>
+				- Changelog improvements<br>
+				<br>
+				<h3>22/07/2024</h3>
+				- Fixed update check, it now correctly notifies for new versions on GDrive<br>
+				<br>
+				<h3>21/07/2024</h3>
+				- converted a lot of JS files to ES6<br>
+				- removed tabs<br>
+				- Modified About section<br>
+				- Added working Paypal link for contributions<br>
+				- Published on Gitlab Repo<br>
+				<br>
+				<h3>18/07/2024</h3>
+				- Initial sync, JS formatting via Standard-JS for all project files<br>
+				- Fixed download playlist from Spotify<br>
+				- Created local dependency "deemix 3.6.15', no longer from NPM, added Uh Wot fix<br>
+				- Created local dependency "spotify-web-api-node 5.04", no longer from NPM, fixed formatting and moved to ES6<br>
+				- Fixed alloc buffer security issue in spotify-web-api-node, was outputting error in server versions<br>
+				- Fixed logger errors<br>
+				- Upgraded a few dependencies<br>
+				- Replaced pkg with yaopkg<br>
+				- updated build scripts, removed Production build for now, the DEV build works fine<br>
+			</ul>
+		</BaseAccordion>
 
 		<h2>{{ $t('about.titles.usefulLinks') }}</h2>
 		<ul class="no-dots">
@@ -204,10 +208,14 @@
 
 <script>
 import { computed, defineComponent, onMounted, reactive, toRefs } from '@vue/composition-api'
+import BaseAccordion from '@/components/globals/BaseAccordion.vue';
 
 import { useOnline } from '@/use/online'
 
 export default defineComponent({
+	components: {
+		BaseAccordion
+	},
 	setup(_, ctx) {
 		const state = reactive({
 			current: null,
