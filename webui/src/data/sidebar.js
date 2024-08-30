@@ -28,6 +28,13 @@ export const links = [
     label: 'sidebar.favorites',
     auth: true
   },
+	{
+    name: 'spotify-home',
+    ariaLabel: 'spotify home',
+    routerName: 'Spotify Home',
+    icon: 'contactless',
+    label: 'sidebar.spotify',
+  },
   {
     name: 'analyzer',
     ariaLabel: 'link analyzer',

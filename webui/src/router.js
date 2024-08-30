@@ -14,6 +14,7 @@ import LinkAnalyzer from '@/components/pages/LinkAnalyzer.vue'
 import Search from '@/components/pages/Search.vue'
 import Settings from '@/components/pages/Settings.vue'
 import Tracklist from '@/components/pages/Tracklist.vue'
+import Spotify from '@/components/pages/Spotify.vue'
 
 import { fetchData } from '@/utils/api'
 import EventBus from '@/utils/EventBus'
@@ -98,6 +99,11 @@ const routes = [
     name: 'Spotify Features',
     component: InfoSpotifyFeatures
   },
+	{
+		path: '/spotify-home',
+		name: 'Spotify Home',
+		component: Spotify
+	},
   {
     path: '/settings',
     name: 'Settings',

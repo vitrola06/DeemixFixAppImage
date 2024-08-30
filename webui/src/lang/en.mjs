@@ -500,6 +500,7 @@ const en = {
     charts: 'charts',
     favorites: 'favorites',
     linkAnalyzer: 'link analyzer',
+		spotify: 'spotify home',
     settings: 'settings',
     logs: 'logs',
     about: 'about'

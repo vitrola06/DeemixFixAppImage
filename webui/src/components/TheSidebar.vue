@@ -102,6 +102,10 @@ export default defineComponent({
 	left: 30px;
 }
 
+a[aria-label="spotify home"] i {
+	transform: rotate(-90deg);
+}
+
 .theme_toggler {
 	transition: border 200ms ease-in-out;
 }
