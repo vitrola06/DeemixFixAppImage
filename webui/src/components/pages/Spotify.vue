@@ -1,12 +1,17 @@
 <template>
 	<div id="spotify_tab" class="image-header">
-		<h1 class="mb-8 text-5xl capitalize">
-			{{ $t('sidebar.spotify') }}
+		<h1 class="mb-8 text-5xl capitalize"> {{ $t('sidebar.spotify') }} </h1>
+		<h2 class="mb-6 text-3xl">
+			{{ $t('spotifyHome.usersHeading') }}
 			<div ref="reloadButton" aria-label="reload" class="inline-block clickable" role="button" @click="refreshSpotifyPlaylists">
 				<i :class="{ hidden: isRefreshingSpotifyPlaylists }" class="material-icons">sync</i>
 			</div>
-		</h1>
-		<h2 class="mb-6 text-3xl">{{ $t('spotifyHome.usersHeading') }}</h2>
+		</h2>
+		<div class="flex gap-2 items-center">
+			<input v-model="spotifyUser" type="text" />
+			<button class="btn btn-primary" @click="updateFollowedUsers">{{ $t('settings.save') }}</button>
+		</div>
+
 		<div class="relative">
 			<BaseLoadingPlaceholder v-if="isRefreshingSpotifyPlaylists" :text="$t('globals.loading')" additional-classes="absolute top-0 left-0 w-full" />
 			<div v-else>
@@ -48,16 +53,17 @@
 </template>
 
 <script>
-
-import { BaseTab, BaseTabs } from '@/components/globals/BaseTabs'
-import BaseLoadingPlaceholder from '@/components/globals/BaseLoadingPlaceholder.vue'
+import { BaseTab, BaseTabs } from '@/components/globals/BaseTabs';
+import BaseLoadingPlaceholder from '@/components/globals/BaseLoadingPlaceholder.vue';
 import BaseAccordion from '../globals/BaseAccordion.vue';
-import CoverContainer from '@/components/globals/CoverContainer.vue'
-import PreviewControls from '@/components/globals/PreviewControls.vue'
+import CoverContainer from '@/components/globals/CoverContainer.vue';
+import PreviewControls from '@/components/globals/PreviewControls.vue';
 
 import { useSpotifyPlaylists } from '@/use/spotifyplaylists';
-import { reactive, watch, toRefs } from '@vue/composition-api';
+import { ref, watch } from '@vue/composition-api';
 import { toast } from '@/utils/toasts';
+import { socket } from '@/utils/socket';
+import store from '@/store';
 
 export default {
 	components: {
@@ -68,35 +74,55 @@ export default {
 		CoverContainer,
 		PreviewControls,
 	},
-	setup(_, ctx) {
-		// const state = reactive({
-		// 	activeTab: 'playlist',
-		// 	tabs: ['playlist', 'album', 'artist', 'track']
-		// })
+	setup(_, { root }) {
+		const lastUser = ref('');
+		const spotifyUser = ref('');
+
 		const {
 			favoriteSpotifyPlaylists,
 			isRefreshingSpotifyPlaylists,
-			refreshSpotifyPlaylists
-		} = useSpotifyPlaylists()
+			refreshSpotifyPlaylists,
+		} = useSpotifyPlaylists();
 
-		refreshSpotifyPlaylists().catch(console.error)
+		const storedSpotifyUser = localStorage.getItem('spotifyUser');
+		if (storedSpotifyUser) {
+			lastUser.value = storedSpotifyUser;
+			spotifyUser.value = storedSpotifyUser;
+			socket.emit('update_userSpotifyPlaylists', spotifyUser.value);
+		}
+		console.log(spotifyUser.value, lastUser.value);
 
+		// Watch the playlist refresh status and trigger a toast on completion
 		watch(isRefreshingSpotifyPlaylists, (newVal, oldVal) => {
-			// If oldVal is true and newOne is false, it means that a refreshing has just terminated
-			// because isRefreshingSpotifyPlaylists represents the status of the refresh functionality
-			const isRefreshingTerminated = oldVal && !newVal
-			if (!isRefreshingTerminated) return
-			toast(ctx.root.$t('toasts.refreshFavs'), 'done', true)
-		})
+			const isRefreshingTerminated = oldVal && !newVal;
+			if (!isRefreshingTerminated) return;
+			toast(root.$t('toasts.refreshFavs'), 'done', true);
+		});
 
+		refreshSpotifyPlaylists().catch(console.error);
+
+		const updateFollowedUsers = () => {
+			if (!spotifyUser.value) return;
+			if (lastUser.value !== spotifyUser.value) {
+				lastUser.value = spotifyUser.value
+				localStorage.setItem('spotifyUser', spotifyUser.value); // TODO maybe? move to store (idk)
+				store.dispatch('setSpotifyUserId', spotifyUser.value);
+				refreshSpotifyPlaylists().catch(console.error);
+				console.log('updated spotify user to', spotifyUser.value)
+			}
+		};
+
+		console.log("ref values", spotifyUser.value, lastUser.value)
 		return {
-			// ...toRefs(state),
+			spotifyPlaylists: favoriteSpotifyPlaylists,
 			isRefreshingSpotifyPlaylists,
 			refreshSpotifyPlaylists,
-			spotifyPlaylists: favoriteSpotifyPlaylists,
-		}
+			spotifyUser,
+			lastUser,
+			updateFollowedUsers,
+		};
 	},
-}
+};
 </script>
 
 <style scoped>
@@ -116,9 +142,9 @@ export default {
 }
 .warning-header {
 	display: inline-flex;
-    align-items: center;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    font-size: 1.25rem;
+	align-items: center;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	font-size: 1.25rem;
 }
 </style>
