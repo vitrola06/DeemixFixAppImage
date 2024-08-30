@@ -129,7 +129,7 @@
 							<i v-else class="material-icons disabled">play_arrow</i>
 						</td>
 						<td>{{ i + 1 }}</td>
-						<td class="flex items-center">
+						<td class="flex items-center standard-height">
 							<i v-if="track.explicit" class="material-icons title-icon">explicit</i>
 							{{ track.name }}
 						</td>
@@ -317,3 +317,8 @@ export default {
 	}
 }
 </script>
+<style scoped>
+	.standard-height {
+		height: 44px;
+	}
+</style>
