@@ -72,7 +72,9 @@ const en = {
       donations: 'You want to contribute monetarily? You could make a donation!'
     },
     usesLibrary: 'This app uses the <strong>deemix</strong> library, which you can use to make your own UI for deemix.',
-    thanks: 'Thanks to <strong>rtonno</strong>, <strong>uhwot</strong> and <strong>lollilol</strong> for helping me with this project and to <strong>BasCurtiz</strong> for making the icon.',
+		thanksOriginal: `Original <strong>Deemix</strong> was developed and maintained by <strong>RemixDev</strong>.`,
+		thanksDeemixFix: `<strong>DeemixFix<strong> developers: <strong>DeeplyDrumming</strong>, <strong>monorail</strong>`,
+    thanks: `Thanks to <strong>rtonno</strong>, <strong>uhwot</strong> and <strong>lollilol</strong> for helping me with this project and to <strong>BasCurtiz</strong> for making the icon.`,
     upToDate: {
       text: 'Stay up to date with the updates by following the {newsChannel} on Telegram.',
       newsChannel: 'news channel'

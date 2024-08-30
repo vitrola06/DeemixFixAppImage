@@ -26,7 +26,8 @@
 		</ul>
 
 		<ul>
-			<li v-html="$t('about.usesLibrary')"></li>
+			<li v-html="$t('about.thanksOriginal')"></li>
+			<li v-html="$t('about.thanksDeemixFix')"></li>
 			<li v-html="$t('about.thanks')"></li>
 			<!-- 			<i18n path="about.upToDate.text" tag="li">
 				<template #newsChannel>
