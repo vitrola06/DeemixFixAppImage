@@ -101,7 +101,7 @@ const routes = [
   },
 	{
 		path: '/spotify-home',
-		name: 'Spotify Home',
+		name: 'Spotify Feed',
 		component: Spotify
 	},
   {

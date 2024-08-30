@@ -502,7 +502,7 @@ const en = {
     charts: 'charts',
     favorites: 'favorites',
     linkAnalyzer: 'link analyzer',
-		spotify: 'spotify home',
+		spotify: 'Spotify Feed',
     settings: 'settings',
     logs: 'logs',
     about: 'about'
@@ -519,6 +519,9 @@ const en = {
 			p2: `Deemix doesen't currenly implement Spotify Auth, so it can't access private playlists.`,
 			p3: `Accessing private playlists is not planned.`
 		},
+		follow: 'Follow',
+		tbfPlaceholder: 'user id to be followed, found here: https://open.spotify.com/user/<user_id>'
+		
 	}
 }
 

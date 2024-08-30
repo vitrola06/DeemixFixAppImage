@@ -30,8 +30,8 @@ export const links = [
   },
 	{
     name: 'spotify-home',
-    ariaLabel: 'spotify home',
-    routerName: 'Spotify Home',
+    ariaLabel: 'Spotify Feed',
+    routerName: 'Spotify Feed',
     icon: 'contactless',
     label: 'sidebar.spotify',
   },

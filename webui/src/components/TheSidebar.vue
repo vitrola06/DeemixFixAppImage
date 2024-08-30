@@ -109,7 +109,7 @@ export default defineComponent({
 	left: 30px;
 }
 
-a[aria-label="spotify home"] i {
+a[aria-label="Spotify Feed"] i {
 	transform: rotate(-90deg);
 }
 

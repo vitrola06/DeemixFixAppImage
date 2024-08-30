@@ -7,9 +7,21 @@
 				<i :class="{ hidden: isRefreshingSpotifyPlaylists }" class="material-icons">sync</i>
 			</div>
 		</h2>
-		<div class="flex gap-2 items-center">
-			<input v-model="spotifyUser" type="text" />
-			<button class="btn btn-primary" @click="updateFollowedUsers">{{ $t('settings.save') }}</button>
+		<div class="followed-grid">
+			<div v-for="user in followedUsers" class="followed-user">
+				<span>{{ user }}</span>
+				<a :href="'http://open.spotify.com/user/' + user" target="_blank">
+					<i class="material-icons">launch</i>
+				</a>
+				<button @click="() => unfollowUser(user)" class="btn btn-primary">
+					<i class="material-icons fill-current">close</i>
+				</button>
+			</div>
+		</div>
+
+		<div class="flex gap-2 items-center mb-4">
+			<input v-model="toBeFollowed" type="text" :placeholder="i18n.t('spotifyHome.tbfPlaceholder')" />
+			<button class="btn btn-primary" @click="followUser">{{ $t('spotifyHome.follow') }}</button>
 		</div>
 
 		<div class="relative">
@@ -60,7 +72,7 @@ import CoverContainer from '@/components/globals/CoverContainer.vue';
 import PreviewControls from '@/components/globals/PreviewControls.vue';
 
 import { useSpotifyPlaylists } from '@/use/spotifyplaylists';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { toast } from '@/utils/toasts';
 import { socket } from '@/utils/socket';
 import store from '@/store';
@@ -78,6 +90,12 @@ export default {
 	setup() {
 		const lastUser = ref('');
 		const spotifyUser = ref('');
+		const toBeFollowed = ref('');
+		const followedUsers = computed(() => spotifyUser.value
+			.split(",")
+			.map(user => user.trim())
+			.filter(Boolean)
+		)
 
 		const i18n = useI18n();
 		const {
@@ -114,39 +132,75 @@ export default {
 			}
 		};
 
+		const followUser = () => {
+			if (spotifyUser.value.includes(toBeFollowed.value)) return;
+			spotifyUser.value += `,${toBeFollowed.value}`
+			toBeFollowed.value = ''
+			updateFollowedUsers()
+		}
+
+		const unfollowUser = (user) => {
+			followedUsers.value.splice(followedUsers.value.indexOf(user), 1)
+			spotifyUser.value = followedUsers.value.join(",")
+			updateFollowedUsers()
+		}
+
 		console.log("ref values", spotifyUser.value, lastUser.value)
 		return {
+			i18n,
 			spotifyPlaylists: favoriteSpotifyPlaylists,
 			isRefreshingSpotifyPlaylists,
 			refreshSpotifyPlaylists,
 			spotifyUser,
 			lastUser,
 			updateFollowedUsers,
+			followedUsers,
+			toBeFollowed,
+			followUser,
+			unfollowUser
 		};
 	},
 };
 </script>
 
 <style scoped>
-.warning {
-	border-top-width: 1px;
-	border-bottom-width: 1px;
-	border-color: #3a393d;
-	border-radius: 0px;
+	.followed-user {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
 
-	padding-top: 0px;
-	padding-bottom: 0px;
-	
-	margin-left: 0px;
-	margin-right: 0px;
-	margin-top: 0.5rem;
-	margin-bottom: 1rem;
-}
-.warning-header {
-	display: inline-flex;
-	align-items: center;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-	font-size: 1.25rem;
-}
+		padding-block: 0.25rem;
+		padding-inline: 0.75rem;
+		font-size: 0.8em;
+
+		/* border-top: 1px solid white; */
+	}
+	.followed-grid {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+		grid-auto-flow: column;
+	}
+
+	.warning {
+		border-top-width: 1px;
+		border-bottom-width: 1px;
+		border-color: #3a393d;
+		border-radius: 0px;
+
+		padding-top: 0px;
+		padding-bottom: 0px;
+		
+		margin-left: 0px;
+		margin-right: 0px;
+		margin-top: 0.5rem;
+		margin-bottom: 1rem;
+	}
+	.warning-header {
+		display: inline-flex;
+		align-items: center;
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+		font-size: 1.25rem;
+	}
 </style>
