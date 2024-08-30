@@ -507,7 +507,16 @@ const en = {
   },
   tracklist: {
     downloadSelection: 'Download selection'
-  }
+  },
+	spotifyHome: {
+		subHeading: `Playlists of the users you follow`,
+		warningTitle: 'Currently, Deemix can only download public Spotify playlists!',
+		warningBody: {
+			p1: `If you can't see the playlist you're looking for, make sure it's set to public.`,
+			p2: `Deemix doesen't currenly implement Spotify Auth, so it can't access private playlists.`,
+			p3: `Accessing private playlists is not planned.`
+		},
+	}
 }
 
 export default en

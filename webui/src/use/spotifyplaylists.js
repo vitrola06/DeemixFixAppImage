@@ -23,9 +23,11 @@ const setSpotifyPlaylists = response => {
       default:
         break
     }
+		isRefreshingSpotifyPlaylists.value = false
     return
   }
 
+	isRefreshingSpotifyPlaylists.value = false
   favoriteSpotifyPlaylists.value = response || []
 }
 
