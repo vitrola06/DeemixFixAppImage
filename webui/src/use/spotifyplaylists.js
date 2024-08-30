@@ -33,8 +33,10 @@ const setSpotifyPlaylists = response => {
 
 const refreshSpotifyPlaylists = async () => {
   isRefreshingSpotifyPlaylists.value = true
+	console.log('dispatching refreshSpotifyStatus')
   await store.dispatch('refreshSpotifyStatus')
 
+	console.log(isLoggedWithSpotify.value)
   if (isLoggedWithSpotify.value) {
     const spotifyUser = store.getters.getSpotifyUser.id
 

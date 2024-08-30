@@ -27,8 +27,8 @@
 
 		<ul>
 			<li v-html="$t('about.thanksOriginal')"></li>
-			<li v-html="$t('about.thanksDeemixFix')"></li>
 			<li v-html="$t('about.thanks')"></li>
+			<li v-html="$t('about.thanksDeemixFix')"></li>
 			<!-- 			<i18n path="about.upToDate.text" tag="li">
 				<template #newsChannel>
 					<a href="https://tg.deemix.app" target="_blank">{{ $t('about.upToDate.newsChannel') }}</a>

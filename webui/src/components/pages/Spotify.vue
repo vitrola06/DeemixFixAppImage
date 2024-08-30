@@ -7,8 +7,6 @@
 			</div>
 		</h1>
 		<h2 class="mb-6 text-3xl">{{ $t('spotifyHome.usersHeading') }}</h2>
-		
-
 		<div class="relative">
 			<BaseLoadingPlaceholder v-if="isRefreshingSpotifyPlaylists" :text="$t('globals.loading')" additional-classes="absolute top-0 left-0 w-full" />
 			<div v-else>
@@ -110,7 +108,7 @@ export default {
 
 	padding-top: 0px;
 	padding-bottom: 0px;
-
+	
 	margin-left: 0px;
 	margin-right: 0px;
 	margin-top: 0.5rem;
