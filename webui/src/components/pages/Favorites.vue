@@ -23,29 +23,9 @@
 				</button>
 
 				<div v-show="activeTab === 'playlist'">
-					<div v-if="playlists.length + spotifyPlaylists.length" class="release-grid">
+					<div v-if="playlists.length" class="release-grid">
 						<div v-for="release in playlists" :key="release.id" class="release">
 							<router-link :to="{ name: 'Playlist', params: { id: release.id } }" class="cursor-pointer" custom
-								v-slot="{ navigate }">
-								<div @click="navigate" @keypress.enter="navigate" role="link">
-									<CoverContainer :cover="release.picture_medium" :link="release.link" is-rounded
-										@click.stop="addToQueue" />
-									<p class="primary-text">{{ release.title }}</p>
-								</div>
-							</router-link>
-
-							<p class="secondary-text">
-								{{
-									`${$t('globals.by', { artist: release.creator.name })} - ${$tc(
-										'globals.listTabs.trackN',
-										release.nb_tracks
-									)}`
-								}}
-							</p>
-						</div>
-
-						<div v-for="release in spotifyPlaylists" :key="release.id" class="release">
-							<router-link :to="{ name: 'Spotify Playlist', params: { id: release.id } }" class="cursor-pointer" custom
 								v-slot="{ navigate }">
 								<div @click="navigate" @keypress.enter="navigate" role="link">
 									<CoverContainer :cover="release.picture_medium" :link="release.link" is-rounded
@@ -178,7 +158,6 @@ export default defineComponent({
 		const {
 			favoriteArtists,
 			favoriteAlbums,
-			favoriteSpotifyPlaylists,
 			favoritePlaylists,
 			favoriteTracks,
 			lovedTracksPlaylist,
@@ -186,7 +165,7 @@ export default defineComponent({
 			refreshFavorites
 		} = useFavorites()
 
-		refreshFavorites({ isInitial: true }).catch(console.error)
+		refreshFavorites().catch(console.error)
 
 		watch(isRefreshingFavorites, (newVal, oldVal) => {
 			// If oldVal is true and newOne is false, it means that a refreshing has just terminated
@@ -206,7 +185,6 @@ export default defineComponent({
 			lovedTracks: lovedTracksPlaylist,
 			playlists: favoritePlaylists,
 			refreshFavorites,
-			spotifyPlaylists: favoriteSpotifyPlaylists,
 			tracks: favoriteTracks,
 		}
 	},
@@ -247,7 +225,6 @@ export default defineComponent({
 			switch (tab) {
 				case 'playlist':
 					toDownload = this.playlists
-					toDownload.concat(this.spotifyPlaylists)
 					break
 				case 'album':
 					toDownload = this.albums
@@ -267,11 +244,6 @@ export default defineComponent({
 		},
 		getTabLength(tab = this.activeTab) {
 			let total = this[`${tab}s`]?.length
-
-			if (tab === 'playlist') {
-				total += this.spotifyPlaylists.length
-			}
-
 			return total || 0
 		},
 		getLovedTracksPlaylist() {

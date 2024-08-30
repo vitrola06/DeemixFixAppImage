@@ -509,7 +509,8 @@ const en = {
     downloadSelection: 'Download selection'
   },
 	spotifyHome: {
-		subHeading: `Playlists of the users you follow`,
+		usersHeading: `Users you follow`,
+		subHeading: `Playlists of users you follow`,
 		warningTitle: 'Currently, Deemix can only download public Spotify playlists!',
 		warningBody: {
 			p1: `If you can't see the playlist you're looking for, make sure it's set to public.`,
