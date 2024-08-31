@@ -77,6 +77,7 @@ import { toast } from '@/utils/toasts';
 import { socket } from '@/utils/socket';
 import store from '@/store';
 import { useI18n } from 'vue-i18n-bridge';
+import { sendAddToQueue } from '@/utils/downloads';
 
 export default {
 	components: {
@@ -145,6 +146,10 @@ export default {
 			updateFollowedUsers()
 		}
 
+		const addToQueue = (e) => {
+			sendAddToQueue(e.currentTarget.dataset.link)
+		}
+
 		console.log("ref values", spotifyUser.value, lastUser.value)
 		return {
 			i18n,
@@ -157,7 +162,8 @@ export default {
 			followedUsers,
 			toBeFollowed,
 			followUser,
-			unfollowUser
+			unfollowUser,
+			addToQueue
 		};
 	},
 };
