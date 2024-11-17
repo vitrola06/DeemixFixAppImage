@@ -2,8 +2,8 @@
 An hybrid app that wraps deemix-webui and lets you use the deemix-js library.  
 This app wouldn't be possible without [RemixDev](https://gitlab.com/RemixDev)'s work on the original [deemix-gui](https://gitlab.com/RemixDev/deemix-gui).  
 
+# This repo
 This is simply a clone of [DeeplyDrumming's fork](https://gitlab.com/deeplydrumming/DeemixFix), because I wanted to provide an AppImage to run the app locally on Linux and I couldn't send a PR.  
-
 To build the AppImage yourself, just run the build instructions on Linux, because I removed the building of the deb package which was causing trouble.  
 
 ## Running from source
