@@ -1,9 +1,8 @@
 # deemix-gui
 An hybrid app that wraps deemix-webui and lets you use the deemix-js library.  
 This app wouldn't be possible without [RemixDev](https://gitlab.com/RemixDev)'s work on the original [deemix-gui](https://gitlab.com/RemixDev/deemix-gui).
-
-## Downloads
-https://bit.ly/DeemixFixBuilds
+This is simply a clone of [DeeplyDrumming's fork](https://gitlab.com/deeplydrumming/DeemixFix), because I wanted to provide an AppImage to run the app locally on Linux and I couldn't send a PR.
+To build the AppImage yourself, just run the build instructions on Linux, because I removed the building of the deb package which was causing trouble.
 
 ## Running from source
 You need to use node version 18 or higher and `pnpm`.
@@ -16,7 +15,6 @@ Install the dependencies using `pnpm i` for development. This installs all the d
 
 Then you should be able to run the app with `pnpm start`.
 If you want to further develop deemix-gui and propose a PR, use `pnpm dev` for development and HMR of the interface in a browser. http://127.0.0.1:6595/
-
 
 You can change the default port by setting the environment variable `PORT` to any other number before starting the app. 
 
